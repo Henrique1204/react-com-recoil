@@ -13,14 +13,6 @@ const App = () => {
 
   const [filtro, setFiltro] = React.useState<Date | null>();
 
-  const alterarStatusEvento = (id: number) => {
-    // const evento = eventos.find((evento) => evento.id === id);
-    // if (evento) {
-    //   evento.completo = !evento.completo;
-    // }
-    // setEventos([...eventos]);
-  };
-
   const aplicarFiltro = (data: Date | null) => {
     setFiltro(data);
   };
@@ -44,10 +36,7 @@ const App = () => {
           <hr />
 
           <Card>
-            <ListaDeEventos
-              aoFiltroAplicado={aplicarFiltro}
-              aoAlterarStatus={alterarStatusEvento}
-            />
+            <ListaDeEventos aoFiltroAplicado={aplicarFiltro} />
           </Card>
         </div>
 

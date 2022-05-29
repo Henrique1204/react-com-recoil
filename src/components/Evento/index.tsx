@@ -9,8 +9,7 @@ import { listaEvetnosState } from "../../state/atom";
 
 const Evento: React.FC<{
   evento: IEvento;
-  aoAlterarStatus: (id: number) => void;
-}> = ({ evento, aoAlterarStatus }) => {
+}> = ({ evento }) => {
   const setListaDeEventos = useSetRecoilState<IEvento[]>(listaEvetnosState);
 
   const estilos = [style.Evento];
@@ -18,12 +17,14 @@ const Evento: React.FC<{
   if (evento.completo) estilos.push(style.completo);
 
   const excluirEvento = () => {
-    setListaDeEventos((listaAntiga) => listaAntiga.filter(({ id }) => id !== evento.id));
+    setListaDeEventos((listaAntiga) =>
+      listaAntiga.filter(({ id }) => id !== evento.id)
+    );
   };
 
   return (
     <div className={estilos.join(" ")}>
-      <EventoCheckbox evento={evento} aoAlterarStatus={aoAlterarStatus} />
+      <EventoCheckbox evento={evento} />
 
       <div className="cards-info">
         <h3 className={style.descricao}>

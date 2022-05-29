@@ -9,12 +9,10 @@ import Evento from "../Evento";
 import Filtro from "../Filtro";
 
 interface IListaDeEventosProps {
-  aoAlterarStatus: (id: number) => void;
   aoFiltroAplicado: (data: Date | null) => void;
 }
 
 const ListaDeEventos: React.FC<IListaDeEventosProps> = ({
-  aoAlterarStatus,
   aoFiltroAplicado,
 }) => {
   const eventos = useRecoilValue(listaEvetnosState);
@@ -25,11 +23,7 @@ const ListaDeEventos: React.FC<IListaDeEventosProps> = ({
 
       <div className={style.Scroll}>
         {eventos.map((evento) => (
-          <Evento
-            aoAlterarStatus={aoAlterarStatus}
-            evento={evento}
-            key={evento.id}
-          />
+          <Evento evento={evento} key={evento.id} />
         ))}
       </div>
     </section>
