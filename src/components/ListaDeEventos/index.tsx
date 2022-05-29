@@ -1,23 +1,42 @@
-import React from 'react';
-import { IEvento } from '../../interfaces/IEvento';
-import Evento from '../Evento';
-import Filtro from '../Filtro';
-import style from './ListaDeEventos.module.scss';
+import React from "react";
+import { useRecoilValue } from "recoil";
 
-const ListaDeEventos: React.FC<{ 
-  eventos: IEvento[], 
-  aoAlterarStatus: (id: number) => void, 
-  aoDeletarEvento: (id: number) => void, 
-  aoFiltroAplicado: (data: Date | null) => void }> = ({ eventos, aoDeletarEvento, aoAlterarStatus, aoFiltroAplicado }) => {
+import style from "./ListaDeEventos.module.scss";
 
-  return (<section>
-    <Filtro aoFiltroAplicado={aoFiltroAplicado} />
-    <div className={style.Scroll}>
-      {eventos.map(evento => (
-        <Evento aoAlterarStatus={aoAlterarStatus} aoDeletarEvento={aoDeletarEvento} evento={evento} key={evento.id} />
-      ))}
-    </div>
-  </section>)
+import { listaEvetnosState } from "../../state/atom";
+
+import Evento from "../Evento";
+import Filtro from "../Filtro";
+
+interface IListaDeEventosProps {
+  aoAlterarStatus: (id: number) => void;
+  aoDeletarEvento: (id: number) => void;
+  aoFiltroAplicado: (data: Date | null) => void;
 }
 
-export default ListaDeEventos
+const ListaDeEventos: React.FC<IListaDeEventosProps> = ({
+  aoDeletarEvento,
+  aoAlterarStatus,
+  aoFiltroAplicado,
+}) => {
+  const eventos = useRecoilValue(listaEvetnosState);
+
+  return (
+    <section>
+      <Filtro aoFiltroAplicado={aoFiltroAplicado} />
+
+      <div className={style.Scroll}>
+        {eventos.map((evento) => (
+          <Evento
+            aoAlterarStatus={aoAlterarStatus}
+            aoDeletarEvento={aoDeletarEvento}
+            evento={evento}
+            key={evento.id}
+          />
+        ))}
+      </div>
+    </section>
+  );
+};
+
+export default ListaDeEventos;
