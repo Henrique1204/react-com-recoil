@@ -1,12 +1,12 @@
 import React from "react";
-import { useSetRecoilState } from "recoil";
+
 import { IEvento } from "../../../interfaces/IEvento";
-import { listaEvetnosState } from "../../../state/atom";
+import useAtualizarEvento from "../../../state/hooks/useAtualizarEvento";
 
 const EventoCheckbox: React.FC<{
   evento: IEvento;
 }> = ({ evento }) => {
-  const setListaDeEventos = useSetRecoilState<IEvento[]>(listaEvetnosState);
+  const { atualizaEvento } = useAtualizarEvento();
 
   const estilos = [
     "far",
@@ -17,15 +17,7 @@ const EventoCheckbox: React.FC<{
   const alterarStatus = () => {
     const novoEvento = { ...evento, completo: !evento.completo };
 
-    setListaDeEventos((listaAntiga) => {
-      const index = listaAntiga.findIndex(({ id }) => id === evento.id);
-
-      return [
-        ...listaAntiga.slice(0, index),
-        novoEvento,
-        ...listaAntiga.slice(index + 1),
-      ];
-    });
+    atualizaEvento(novoEvento);
   };
 
   return <i className={estilos.join(" ")} onClick={alterarStatus}></i>;

@@ -1,6 +1,6 @@
 import React from "react";
 import Kalend, { CalendarView, OnEventDragFinish } from "kalend";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 
 import "kalend/dist/styles/index.css";
 
@@ -8,7 +8,7 @@ import style from "./Calendario.module.scss";
 import ptBR from "./localizacao/ptBR.json";
 
 import { listaEvetnosState } from "../../state/atom";
-import { IEvento } from "../../interfaces/IEvento";
+import useAtualizarEvento from "../../state/hooks/useAtualizarEvento";
 
 interface IKalendEvento {
   id?: number;
@@ -22,7 +22,7 @@ const Calendario: React.FC = () => {
   const eventosKalend = new Map<string, IKalendEvento[]>();
 
   const eventos = useRecoilValue(listaEvetnosState);
-  const setListaDeEventos = useSetRecoilState<IEvento[]>(listaEvetnosState);
+  const { atualizaEvento } = useAtualizarEvento();
 
   eventos.forEach((evento) => {
     const chave = evento.inicio.toISOString().slice(0, 10);
@@ -51,15 +51,7 @@ const Calendario: React.FC = () => {
       eventoAtualizado.inicio = new Date(kalendarNovo.startAt);
       eventoAtualizado.fim = new Date(kalendarNovo.endAt);
 
-      setListaDeEventos((listaAntiga) => {
-        const index = listaAntiga.findIndex(({ id }) => id === eventoAtualizado.id);
-
-        return [
-          ...listaAntiga.slice(0, index),
-          eventoAtualizado,
-          ...listaAntiga.slice(index + 1),
-        ];
-      });
+      atualizaEvento(eventoAtualizado);
     }
   };
 
