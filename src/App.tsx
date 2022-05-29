@@ -1,9 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { RecoilRoot } from "recoil";
 
 import style from "./App.module.scss";
-
-import { IEvento } from "./interfaces/IEvento";
 
 import Card from "./components/Card";
 import Formulario from "./components/Formulario";
@@ -13,7 +11,7 @@ import ListaDeEventos from "./components/ListaDeEventos";
 const App = () => {
   // const [eventos, setEventos] = useState<IEvento[]>([]);
 
-  const [filtro, setFiltro] = useState<Date | null>();
+  const [filtro, setFiltro] = React.useState<Date | null>();
 
   const alterarStatusEvento = (id: number) => {
     // const evento = eventos.find((evento) => evento.id === id);
@@ -21,10 +19,6 @@ const App = () => {
     //   evento.completo = !evento.completo;
     // }
     // setEventos([...eventos]);
-  };
-
-  const deletarEvento = (id: number) => {
-    // setEventos([...eventos.filter((evento) => evento.id !== id)]);
   };
 
   const aplicarFiltro = (data: Date | null) => {
@@ -53,7 +47,6 @@ const App = () => {
             <ListaDeEventos
               aoFiltroAplicado={aplicarFiltro}
               aoAlterarStatus={alterarStatusEvento}
-              aoDeletarEvento={deletarEvento}
             />
           </Card>
         </div>

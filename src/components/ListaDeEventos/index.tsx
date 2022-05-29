@@ -10,12 +10,10 @@ import Filtro from "../Filtro";
 
 interface IListaDeEventosProps {
   aoAlterarStatus: (id: number) => void;
-  aoDeletarEvento: (id: number) => void;
   aoFiltroAplicado: (data: Date | null) => void;
 }
 
 const ListaDeEventos: React.FC<IListaDeEventosProps> = ({
-  aoDeletarEvento,
   aoAlterarStatus,
   aoFiltroAplicado,
 }) => {
@@ -29,7 +27,6 @@ const ListaDeEventos: React.FC<IListaDeEventosProps> = ({
         {eventos.map((evento) => (
           <Evento
             aoAlterarStatus={aoAlterarStatus}
-            aoDeletarEvento={aoDeletarEvento}
             evento={evento}
             key={evento.id}
           />
