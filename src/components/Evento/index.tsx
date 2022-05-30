@@ -1,26 +1,22 @@
 import React from "react";
-import { useSetRecoilState } from "recoil";
 
 import style from "./Evento.module.scss";
 import EventoCheckbox from "./EventoCheckbox";
 
 import { IEvento } from "../../interfaces/IEvento";
-import { listaEvetnosState } from "../../state/atom";
+import useRemoverEvento from "../../state/hooks/useRemoverEvento";
 
 const Evento: React.FC<{
   evento: IEvento;
 }> = ({ evento }) => {
-  const setListaDeEventos = useSetRecoilState<IEvento[]>(listaEvetnosState);
+
+  const { removerEvento } = useRemoverEvento();
 
   const estilos = [style.Evento];
 
   if (evento.completo) estilos.push(style.completo);
 
-  const excluirEvento = () => {
-    setListaDeEventos((listaAntiga) =>
-      listaAntiga.filter(({ id }) => id !== evento.id)
-    );
-  };
+  const excluirEvento = () => removerEvento(evento);
 
   return (
     <div className={estilos.join(" ")}>
