@@ -1,0 +1,32 @@
+{
+  "eventos": [
+    {
+      "descricao": "Estudar React",
+      "inicio": "2022-05-30T09:00",
+      "fim": "2022-05-30T13:00",
+      "completo": false,
+      "id": 1642342747
+    },
+    {
+      "descricao": "Estudar Recoil",
+      "inicio": "2022-05-31T09:00",
+      "fim": "2022-05-31T11:00",
+      "completo": false,
+      "id": 1642342959
+    },
+    {
+      "descricao": "Estudar GraphQL",
+      "inicio": "2022-05-31T09:00",
+      "fim": "2022-05-31T11:00",
+      "completo": false,
+      "id": 1642342960
+    },
+    {
+      "descricao": "Estudar C#",
+      "inicio": "2022-05-31T09:00",
+      "fim": "2022-05-31T11:00",
+      "completo": false,
+      "id": 1642342961
+    }
+  ]
+}
