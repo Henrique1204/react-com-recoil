@@ -11,7 +11,9 @@ const useAdicionarEvento = () => {
     const hoje = new Date();
 
     if (evento.inicio.getDate() < hoje.getDate()) {
-        throw new Error('Eventos não podem ser cadastrados com data menor do que atual!');
+      throw new Error(
+        "Eventos não podem ser cadastrados com data menor do que atual!"
+      );
     }
 
     evento.id = obeterId();
