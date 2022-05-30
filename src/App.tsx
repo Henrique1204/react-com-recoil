@@ -9,22 +9,6 @@ import Calendario from "./components/Calendario";
 import ListaDeEventos from "./components/ListaDeEventos";
 
 const App = () => {
-  // const [eventos, setEventos] = useState<IEvento[]>([]);
-
-  const [filtro, setFiltro] = React.useState<Date | null>();
-
-  const aplicarFiltro = (data: Date | null) => {
-    setFiltro(data);
-  };
-
-  // const filtrados = !filtro
-  //   ? eventos
-  //   : eventos.filter(
-  //       (evento) =>
-  //         filtro!.toISOString().slice(0, 10) ===
-  //         evento.inicio.toISOString().slice(0, 10)
-  //     );
-
   return (
     <RecoilRoot>
       <div className={style.App}>
@@ -36,7 +20,7 @@ const App = () => {
           <hr />
 
           <Card>
-            <ListaDeEventos aoFiltroAplicado={aplicarFiltro} />
+            <ListaDeEventos />
           </Card>
         </div>
 

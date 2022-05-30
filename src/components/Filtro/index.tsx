@@ -1,34 +1,35 @@
-import React, { useState } from 'react';
-import style from './Filtro.module.scss';
+import React, { useState } from "react";
+import useSetFiltroEventos from "../../state/hooks/useSetFiltroEventos";
+import style from "./Filtro.module.scss";
 
-const Filtro: React.FC<{ aoFiltroAplicado: (data: Date | null) => void }> = ({ aoFiltroAplicado }) => {
-  
-  const [data, setData] = useState('')
-  
+const Filtro: React.FC = () => {
+  const { setFiltro } = useSetFiltroEventos();
+  const [data, setData] = useState("");
+
   const submeterForm = (evento: React.FormEvent<HTMLFormElement>) => {
-    evento.preventDefault()
-    if (!data) {
-      aoFiltroAplicado(null)
-      return
-    }
-    aoFiltroAplicado(new Date(data))
-  }
+    evento.preventDefault();
 
-  return (<form className={style.Filtro} onSubmit={submeterForm}>
-    <h3 className={style.titulo}>Filtrar por data</h3>
-    <input 
-      type="date" 
-      name="data"
-      className={style.input}
-      onChange={evento => setData(evento.target.value)} 
-      placeholder="Por data"
-      value={data} />
+    if (!data) return setFiltro({ data: undefined });
 
-    <button className={style.botao}>
-      Filtrar
-    </button>
+    setFiltro({ data: new Date(data) });
+  };
 
-  </form>)
-}
+  return (
+    <form className={style.Filtro} onSubmit={submeterForm}>
+      <h3 className={style.titulo}>Filtrar por data</h3>
 
-export default Filtro
+      <input
+        type="date"
+        name="data"
+        className={style.input}
+        onChange={(evento) => setData(evento.target.value)}
+        placeholder="Por data"
+        value={data}
+      />
+
+      <button className={style.botao}>Filtrar</button>
+    </form>
+  );
+};
+
+export default Filtro;
