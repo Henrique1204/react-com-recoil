@@ -1,10 +1,11 @@
 import { useRecoilValue } from "recoil";
 
-import { listaEvetnosState } from "../atom";
+import { eventosFiltradosState } from "../seletores";
+
 import { IEvento } from "../../interfaces/IEvento";
 
 const useListarEventos = (): IEvento[] => {
-  const eventos = useRecoilValue<IEvento[]>(listaEvetnosState);
+  const eventos = useRecoilValue<IEvento[]>(eventosFiltradosState);
 
   return eventos;
 };
