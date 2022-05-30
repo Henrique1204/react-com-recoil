@@ -1,11 +1,9 @@
 import React from "react";
-import { useSetRecoilState } from "recoil";
 
 import style from "./Formulario.module.scss";
 
 import { obeterId } from "../../util";
-import { IEvento } from "../../interfaces/IEvento";
-import { listaEvetnosState } from "../../state/atom";
+import useAdicionarEvento from "../../state/hooks/useAdicionarEvento";
 
 const Formulario: React.FC = () => {
   const [descricao, setDescricao] = React.useState("");
@@ -14,7 +12,7 @@ const Formulario: React.FC = () => {
   const [dataFim, setDataFim] = React.useState("");
   const [horaFim, setHoraFim] = React.useState("");
 
-  const setListaDeEventos = useSetRecoilState<IEvento[]>(listaEvetnosState);
+  const { adicionarEvento } = useAdicionarEvento();
 
   const montarData = (data: string, hora: string) => {
     const dataString = data.slice(0, 10);
@@ -23,23 +21,27 @@ const Formulario: React.FC = () => {
   };
 
   const submeterForm = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+    try {
+      event.preventDefault();
 
-    const evento = {
-      id: obeterId(),
-      descricao,
-      inicio: montarData(dataInicio, horaInicio),
-      fim: montarData(dataFim, horaFim),
-      completo: false,
-    };
+      const evento = {
+        id: obeterId(),
+        descricao,
+        inicio: montarData(dataInicio, horaInicio),
+        fim: montarData(dataFim, horaFim),
+        completo: false,
+      };
 
-    setListaDeEventos((listaAntiga) => [...listaAntiga, evento]);
+      adicionarEvento(evento);
 
-    setDescricao("");
-    setDataInicio("");
-    setHoraInicio("");
-    setDataFim("");
-    setHoraFim("");
+      setDescricao("");
+      setDataInicio("");
+      setHoraInicio("");
+      setDataFim("");
+      setHoraFim("");
+    } catch ({ message }) {
+      alert(message);
+    }
   };
 
   return (
